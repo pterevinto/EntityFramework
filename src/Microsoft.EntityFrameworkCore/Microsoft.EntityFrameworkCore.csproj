@@ -217,6 +217,8 @@
     <Compile Include="Internal\ReferenceEqualityComparer.cs" />
     <Compile Include="Internal\ServiceProviderCache.cs" />
     <Compile Include="Internal\TypeExtensions.cs" />
+    <Compile Include="WarningBehavior.cs" />
+    <Compile Include="Internal\WarningsConfiguration.cs" />
     <Compile Include="Metadata\Builders\CollectionNavigationBuilder.cs" />
     <Compile Include="Metadata\Builders\CollectionNavigationBuilder`.cs" />
     <Compile Include="Metadata\Builders\EntityTypeBuilder.cs" />
@@ -498,6 +500,7 @@
     <Compile Include="ValueGeneration\ValueGeneratorFactory.cs" />
     <Compile Include="ValueGeneration\ValueGeneratorSelector.cs" />
     <Compile Include="ValueGeneration\ValueGenerator`.cs" />
+    <Compile Include="WarningsConfigurationBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\CoreStrings.resx">

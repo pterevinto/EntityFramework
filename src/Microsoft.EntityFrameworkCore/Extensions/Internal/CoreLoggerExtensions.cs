@@ -26,13 +26,12 @@ namespace Microsoft.EntityFrameworkCore.Internal
                 logger.Log<object>(LogLevel.Debug, (int)eventId, null, null, (_, __) => formatter());
             }
         }
-
+        
         public static void LogWarning(this ILogger logger, CoreLoggingEventId eventId, Func<string> formatter)
         {
-            if (logger.IsEnabled(LogLevel.Warning))
-            {
-                logger.Log<object>(LogLevel.Warning, (int)eventId, null, null, (_, __) => formatter());
-            }
+            // Always call Log for Warnings because Warnings as Errors should work even
+            // if LogLevel.Warning is not enabled.
+            logger.Log<object>(LogLevel.Warning, (int)eventId, eventId, null, (_, __) => formatter());
         }
     }
 }

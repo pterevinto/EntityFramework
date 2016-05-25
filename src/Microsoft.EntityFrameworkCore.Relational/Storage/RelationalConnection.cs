@@ -28,7 +28,6 @@ namespace Microsoft.EntityFrameworkCore.Storage
         private bool _openedInternally;
         private int? _commandTimeout;
         private readonly ILogger _logger;
-        private readonly bool _throwOnAmbientTransaction;
 
         protected RelationalConnection([NotNull] IDbContextOptions options, [NotNull] ILogger logger)
         {
@@ -61,8 +60,6 @@ namespace Microsoft.EntityFrameworkCore.Storage
             {
                 throw new InvalidOperationException(RelationalStrings.NoConnectionOrConnectionString);
             }
-
-            _throwOnAmbientTransaction = relationalOptions.ThrowOnAmbientTransaction ?? true;
         }
 
         protected abstract DbConnection CreateDbConnection();
@@ -245,10 +242,11 @@ namespace Microsoft.EntityFrameworkCore.Storage
         private void CheckForAmbientTransactions()
         {
 #if NET451
-            if (_throwOnAmbientTransaction
-                && (Transaction.Current != null))
+            if (Transaction.Current != null)
             {
-                throw new InvalidOperationException(RelationalStrings.AmbientTransaction);
+                Logger.LogWarning(
+                    RelationalLoggingEventId.AmbientTransactionWarning,
+                    () => RelationalStrings.AmbientTransaction);
             }
 #endif
         }
