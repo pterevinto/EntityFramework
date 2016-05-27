@@ -762,8 +762,13 @@ namespace Microsoft.EntityFrameworkCore.Query.ExpressionVisitors
             }
             else if (!(subQueryModel.GetOutputDataInfo() is StreamedSequenceInfo))
             {
+                var streamedSingleValueInfo = subQueryModel.GetOutputDataInfo() as StreamedSingleValueInfo;
+                var streamedSingleValueSuppertedType = streamedSingleValueInfo != null
+                    && _relationalTypeMapper.FindMapping(streamedSingleValueInfo.DataType.UnwrapNullableType().UnwrapEnumType()) != null;
+
                 if (_inProjection
-                    && !(subQueryModel.GetOutputDataInfo() is StreamedScalarValueInfo))
+                    && !(subQueryModel.GetOutputDataInfo() is StreamedScalarValueInfo) 
+                    && !streamedSingleValueSuppertedType)
                 {
                     return null;
                 }
