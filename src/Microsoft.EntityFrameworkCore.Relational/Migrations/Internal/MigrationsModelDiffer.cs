@@ -221,14 +221,14 @@ namespace Microsoft.EntityFrameworkCore.Migrations.Internal
                 .Concat(dropColumnOperations)
                 .Concat(dropTableOperations)
                 .Concat(ensureSchemaOperations)
+                .Concat(renameTableOperations)
+                .Concat(renameOperations)
+                .Concat(renameColumnOperations)
                 .Concat(createSequenceOperations)
                 .Concat(createTableOperations)
                 .Concat(addColumnOperations)
                 .Concat(alterOperations)
                 .Concat(addForeignKeyOperations)
-                .Concat(renameColumnOperations)
-                .Concat(renameOperations)
-                .Concat(renameTableOperations)
                 .Concat(leftovers)
                 .ToArray();
         }
